@@ -1,0 +1,8 @@
+study(title="50-200 EMA Daily", shorttitle="EMA 50-200", overlay=true)
+
+// STUDY: EMA 50-200
+ma50 = security(tickerid, 'D', ema(close, 50))
+ma200 = security(tickerid, 'D', ema(close, 200))
+plot( ma50, color=#81c186, style=line, title="dailyMMA50", linewidth=4)
+plot( ma200, color=#fa8072, style=line, title="dailyMMA200", linewidth=4)
+

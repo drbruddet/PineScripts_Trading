@@ -1,0 +1,27 @@
+
+study(title="RSI / STOCH RSI OVERLAY", shorttitle="STOCH V RSI")
+// RSI
+src = close, len = input(14, minval=1, title="Length")
+up = rma(max(change(src), 0), len)
+down = rma(-min(change(src), 0), len)
+rsi = down == 0 ? 100 : up == 0 ? 0 : 100 - (100 / (1 + up / down))
+plot(rsi, color=#bd5b09, linewidth=5)
+band1 = hline(70, linestyle=solid)
+band0 = hline(30, linestyle=solid)
+fill(band1, band0, color=#587081, transp=80)
+
+// STOCH RSI
+smoothK = input(3, minval=1)
+smoothD = input(3, minval=1)
+lengthRSI = input(14, minval=1)
+lengthStoch = input(14, minval=1)
+src1 = input(close, title="RSI Source")
+
+rsi1 = rsi(src, lengthRSI)
+k = sma(stoch(rsi1, rsi1, rsi1, lengthStoch), smoothK)
+d = sma(k, smoothD)
+plot(k, color=#81c186, linewidth=2)
+plot(d, color=#ed192d, linewidth=2)
+h0 = hline(80)
+h1 = hline(20)
+fill(h0, h1, color=black, transp=100)
